@@ -22,6 +22,7 @@ class Mario {
   }
 
   draw() {
+    this.ctx.fillStyle = 'red'
     this.ctx.fillRect(this.x, this.y, this.w, this.h)
   }
 
@@ -38,6 +39,14 @@ class Mario {
       this.ay = 0
 
       this.isJumping = false
+    }
+
+    if (this.x < 0) {
+      this.x = 0
+    }
+
+    if (this.x + this.w > this.ctx.canvas.width) {
+      this.x = this.ctx.canvas.width - this.w
     }
   }
 

@@ -11,8 +11,11 @@ class Game {
     this.fps = FPS
     this.drawIntervalId = null
 
+
     this.mario = new Mario(this.ctx, 20, 20)
-    this.mario.groundTo(this.canvas.height - 100)
+    this.mario.groundTo(this.canvas.height - BG_FLOOR)
+
+    this.bg = new Background(this.ctx)
   }
 
   start() {
@@ -27,6 +30,7 @@ class Game {
   }
 
   draw() {
+    this.bg.draw()
     this.mario.draw()
   }
 

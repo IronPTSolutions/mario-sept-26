@@ -10,3 +10,5 @@ const MARIO_AY = 0.4
 const KEY_RIGHT = 39
 const KEY_LEFT = 37
 const KEY_UP = 38
+
+const BG_FLOOR = 55
