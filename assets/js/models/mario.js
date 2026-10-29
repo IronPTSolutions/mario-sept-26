@@ -6,14 +6,32 @@ class Mario {
     this.y = y
     this.ground = 0
 
-    this.w = 30
-    this.h = 30
+    this.w = MARIO_W
+    this.h = MARIO_H
 
     this.vx = 0
     this.vy = 0
     this.ay = 0
 
     this.isJumping = false
+
+    this.sprite = new Image()
+    this.sprite.src = '/assets/img/sprites/sprite-mario.png'
+
+    this.sprite.vFrames = 2 // Cuantas columnas tiene el dibujo xFrames
+    this.sprite.hFrames = 2 // Cuantas filas
+
+    this.sprite.vFrameIndex = 0
+    this.sprite.hFrameIndex = 1
+
+    this.sprite.onload = () => {
+      this.sprite.isReady = true
+
+      this.sprite.frameW = Math.floor(this.sprite.width / this.sprite.vFrames)
+      this.sprite.frameH = Math.floor(this.sprite.height / this.sprite.hFrames)
+    }
+
+    this.drawCount = 0
   }
 
   groundTo(groundY) {
@@ -22,8 +40,22 @@ class Mario {
   }
 
   draw() {
-    this.ctx.fillStyle = 'red'
-    this.ctx.fillRect(this.x, this.y, this.w, this.h)
+    if (this.sprite.isReady) {
+      this.ctx.drawImage(
+        this.sprite,
+        this.sprite.vFrameIndex * this.sprite.frameW,
+        this.sprite.hFrameIndex * this.sprite.frameH,
+        this.sprite.frameW,
+        this.sprite.frameH,
+        this.x,
+        this.y,
+        this.w,
+        this.h
+      )
+    }
+
+    this.animate()
+    this.drawCount++
   }
 
   move() {
@@ -75,6 +107,28 @@ class Mario {
           this.ay = MARIO_AY
         }
         break;
+    }
+  }
+
+  animate() {
+    if (this.isJumping) {
+      this.sprite.vFrameIndex = 0
+      this.sprite.hFrameIndex = 0
+    } else if (this.vx !== 0) {
+      this.animateFrame(1, 1, 2, 60 * 5)
+    } else {
+      this.sprite.vFrameIndex = 0
+      this.sprite.hFrameIndex = 1
+    }
+  }
+
+  animateFrame(initialVFrame, initialHFrame, frames, frequency) {
+    if (this.sprite.hFrameIndex !== initialHFrame) { // Comprueba si vengo de otra animacion, por ejemplo de jumping que la hIndex seria 0
+      this.sprite.vFrameIndex = initialVFrame
+      this.sprite.hFrameIndex = initialHFrame
+    } else if (this.drawCount % frequency === 0) {
+      this.drawCount = 0
+      this.sprite.vFrameIndex = (this.sprite.vFrameIndex + 1) % frames
     }
   }
 }
