@@ -115,7 +115,7 @@ class Mario {
       this.sprite.vFrameIndex = 0
       this.sprite.hFrameIndex = 0
     } else if (this.vx !== 0) {
-      this.animateFrame(1, 1, 2, 60 * 5)
+      this.animateFrame(1, 1, 2, 5)
     } else {
       this.sprite.vFrameIndex = 0
       this.sprite.hFrameIndex = 1
