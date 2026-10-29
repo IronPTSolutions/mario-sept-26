@@ -35,6 +35,7 @@ class Game {
   }
 
   move() {
+    this.bg.move()
     this.mario.move()
   }
 

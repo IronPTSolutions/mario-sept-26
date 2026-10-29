@@ -1,5 +1,5 @@
 class Background {
-  constructor(ctx) {
+  constructor(ctx, src = '/assets/img/bgs/bg-game.png') {
     this.ctx = ctx
 
     this.x = 0
@@ -8,19 +8,40 @@ class Background {
     this.h = this.ctx.canvas.height
 
     this.image = new Image()
-    this.image.src = '/assets/img/bgs/bg-game.png'
+    this.image.src = src
     this.image.onload = () => {
       this.image.isReady = true
     }
+
+    this.vx = -MARIO_VX
   }
 
   draw() {
     if (this.image.isReady) {
-      this.ctx.drawImage(this.image, this.x, this.y, this.w, this.h)
+      this.ctx.drawImage(
+        this.image,
+        this.x,
+        this.y,
+        this.w,
+        this.h
+      )
+
+      this.ctx.drawImage(
+        this.image,
+        this.x + this.w,
+        this.y,
+        this.w,
+        this.h
+      )
     }
   }
 
   move() {
+    // this.x += this.vx
 
+
+    // if (this.x < -this.w) {
+    //   this.x = 0
+    // }
   }
 }
