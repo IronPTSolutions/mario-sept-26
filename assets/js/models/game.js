@@ -17,19 +17,23 @@ class Game {
 
     this.bg = new Background(this.ctx)
 
-    this.coins = [
-      new Coin(this.ctx, this.canvas.width + 100, this.canvas.height - BG_FLOOR - COIN_H),
-    ]
-    // this.coins = new Coin(this.ctx, this.canvas.width, this.canvas.height - BG_FLOOR)
+    this.coins = []
+    this.coinTimeoutId = null
+
+    this.score = 0
+    this.hearts = 3
   }
 
   start() {
     if (this.drawIntervalId === null) {
+      // Esto se hace una vez
       this.setupListeners()
+      // Esto 60 veces por segundo
       this.drawIntervalId = setInterval(() => {
         this.clear()
         this.move()
         this.draw()
+        this.generateElements()
       }, this.fps)
     }
   }
@@ -44,6 +48,8 @@ class Game {
     this.bg.move()
     this.mario.move()
     this.coins.forEach(coin => coin.move())
+
+    this.checkBounds()
   }
 
   clear() {
@@ -62,5 +68,24 @@ class Game {
     addEventListener('keyup', (event) => {
       this.mario.onKeyEvent(event)
     })
+  }
+
+  generateElements() {
+    if (this.coinTimeoutId === null) {
+      this.coinTimeoutId = setTimeout(() => {
+        const randomY = Math.floor(Math.random() * 101)
+
+        this.coins.push(
+          new Coin(
+            this.ctx, this.canvas.width + 100,
+            this.canvas.height - BG_FLOOR - COIN_H - randomY),
+        )
+        this.coinTimeoutId = null
+      }, 3000);
+    }
+  }
+
+  checkBounds() {
+    this.coins = this.coins.filter(coin => coin.x + coin.w >= 0)
   }
 }
