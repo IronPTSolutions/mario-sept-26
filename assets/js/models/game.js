@@ -94,16 +94,9 @@ class Game {
     if (this.enemiesTimeoutId === null) {
       this.enemiesTimeoutId = setTimeout(() => {
         this.enemies.push(
-          new Enemy(
+          Enemy.generateBowser(
             this.ctx,
             this.canvas.width,
-            this.canvas.height - BG_FLOOR - BOWSER_H,
-            BOWSER_W,
-            BOWSER_H,
-            BOWSER_SPRITE,
-            BOWSER_SPRITE_VFRAMES,
-            BOWSER_SPRITE_HFRAMES,
-            BOWSER_SCORE
           )
         )
         this.enemiesTimeoutId = null

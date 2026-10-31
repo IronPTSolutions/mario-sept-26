@@ -1,4 +1,18 @@
 class Enemy {
+  static generateBowser(ctx, x, y) {
+    return new Enemy(
+      ctx,
+      x,
+      ctx.canvas.height - BG_FLOOR - BOWSER_H,
+      BOWSER_W,
+      BOWSER_H,
+      BOWSER_SPRITE,
+      BOWSER_SPRITE_VFRAMES,
+      BOWSER_SPRITE_HFRAMES,
+      BOWSER_SCORE
+    )
+  }
+
   constructor(ctx, x, y, w, h, src, vFrames, hFrames, score) {
     this.ctx = ctx
 
@@ -8,6 +22,8 @@ class Enemy {
     this.h = h
 
     this.vx = -ENEMY_VX
+
+    this.score = score
 
     this.sprite = new Image()
     this.sprite.src = src
