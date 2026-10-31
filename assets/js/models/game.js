@@ -81,7 +81,7 @@ class Game {
   }
 
   gameOver() {
-    alert('Perdiste')
+    // alert('Perdiste')
     window.location.reload()
   }
 
@@ -136,7 +136,11 @@ class Game {
 
     this.enemies = this.enemies.filter(enemy => {
       if (this.mario.collidesWith(enemy)) {
-        this.hearts--
+        if (this.mario.isJumping && this.mario.y < enemy.y) {
+          this.score += enemy.score
+        } else {
+          this.hearts--
+        }
         return false
       }
       return true
