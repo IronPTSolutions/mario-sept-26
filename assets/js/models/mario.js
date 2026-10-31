@@ -15,21 +15,35 @@ class Mario {
 
     this.isJumping = false
 
-    this.sprite = new Image()
-    this.sprite.src = '/assets/img/sprites/sprite-mario.png'
+    // Declarar para las 2 imagenes
 
-    this.sprite.vFrames = 2 // Cuantas columnas tiene el dibujo xFrames
-    this.sprite.hFrames = 2 // Cuantas filas
+    this.spriteRight = new Image()
+    this.spriteRight.src = '/assets/img/sprites/mario/sprite-right-mario.png'
+    this.spriteRight.vFrames = 2 // Cuantas columnas tiene el dibujo xFrames
+    this.spriteRight.hFrames = 2 // Cuantas filas
+    this.spriteRight.vFrameIndex = 0
+    this.spriteRight.hFrameIndex = 1
+    this.spriteRight.onload = () => {
+      this.spriteRight.isReady = true
 
-    this.sprite.vFrameIndex = 0
-    this.sprite.hFrameIndex = 1
-
-    this.sprite.onload = () => {
-      this.sprite.isReady = true
-
-      this.sprite.frameW = Math.floor(this.sprite.width / this.sprite.vFrames)
-      this.sprite.frameH = Math.floor(this.sprite.height / this.sprite.hFrames)
+      this.spriteRight.frameW = Math.floor(this.spriteRight.width / this.spriteRight.vFrames)
+      this.spriteRight.frameH = Math.floor(this.spriteRight.height / this.spriteRight.hFrames)
     }
+
+    this.spriteLeft = new Image()
+    this.spriteLeft.src = '/assets/img/sprites/mario/sprite-left-mario.png'
+    this.spriteLeft.vFrames = 2 // Cuantas columnas tiene el dibujo xFrames
+    this.spriteLeft.hFrames = 2 // Cuantas filas
+    this.spriteLeft.vFrameIndex = 0
+    this.spriteLeft.hFrameIndex = 1
+    this.spriteLeft.onload = () => {
+      this.spriteLeft.isReady = true
+
+      this.spriteLeft.frameW = Math.floor(this.spriteLeft.width / this.spriteLeft.vFrames)
+      this.spriteLeft.frameH = Math.floor(this.spriteLeft.height / this.spriteLeft.hFrames)
+    }
+
+    this.sprite = this.spriteRight
 
     this.drawCount = 0
   }
@@ -88,6 +102,7 @@ class Mario {
     switch (event.keyCode) {
       case KEY_RIGHT:
         if (isPressed) {
+          this.sprite = this.spriteRight
           this.vx = MARIO_VX
         } else {
           this.vx = 0
@@ -95,6 +110,7 @@ class Mario {
         break
       case KEY_LEFT:
         if (isPressed) {
+          this.sprite = this.spriteLeft
           this.vx = -MARIO_VX
         } else {
           this.vx = 0
