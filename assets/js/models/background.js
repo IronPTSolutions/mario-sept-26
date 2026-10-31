@@ -13,7 +13,7 @@ class Background {
       this.image.isReady = true
     }
 
-    this.vx = -MARIO_VX
+    this.vx = -BG_VX
   }
 
   draw() {

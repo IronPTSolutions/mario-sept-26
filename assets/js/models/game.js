@@ -16,6 +16,11 @@ class Game {
     this.mario.groundTo(this.canvas.height - BG_FLOOR)
 
     this.bg = new Background(this.ctx)
+
+    this.coins = [
+      new Coin(this.ctx, this.canvas.width + 100, this.canvas.height - BG_FLOOR - COIN_H),
+    ]
+    // this.coins = new Coin(this.ctx, this.canvas.width, this.canvas.height - BG_FLOOR)
   }
 
   start() {
@@ -32,11 +37,13 @@ class Game {
   draw() {
     this.bg.draw()
     this.mario.draw()
+    this.coins.forEach(coin => coin.draw())
   }
 
   move() {
     this.bg.move()
     this.mario.move()
+    this.coins.forEach(coin => coin.move())
   }
 
   clear() {
