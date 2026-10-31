@@ -25,6 +25,12 @@ class Game {
 
     this.score = 0
     this.hearts = 3
+
+    this.heart = new Image()
+    this.heart.src = HEARTS_IMG
+    this.heart.onload = () => {
+      this.heart.isReady = true
+    }
   }
 
   start() {
@@ -38,6 +44,11 @@ class Game {
         this.draw()
         this.generateElements()
         this.checkCollisions()
+
+        if (this.checkGameOver()) {
+          this.stop()
+          this.gameOver()
+        }
       }, this.fps)
     }
   }
@@ -48,6 +59,7 @@ class Game {
     this.coins.forEach(coin => coin.draw())
     this.enemies.forEach(enemy => enemy.draw())
     this.drawScore()
+    this.drawHearts()
   }
 
   move() {
@@ -66,6 +78,11 @@ class Game {
   stop() {
     clearInterval(this.drawIntervalId)
     this.drawIntervalId = null
+  }
+
+  gameOver() {
+    alert('Perdiste')
+    window.location.reload()
   }
 
   setupListeners() {
@@ -116,10 +133,36 @@ class Game {
       }
       return true
     })
+
+    this.enemies = this.enemies.filter(enemy => {
+      if (this.mario.collidesWith(enemy)) {
+        this.hearts--
+        return false
+      }
+      return true
+    })
+  }
+
+  drawHearts() {
+    if (this.heart.isReady) {
+      for (let i = 0; i < this.hearts; i++) {
+        this.ctx.drawImage(
+          this.heart,
+          (5 + HEARTS_W) * i + 20,
+          20,
+          HEARTS_W,
+          HEARTS_H
+        )
+      }
+    }
   }
 
   drawScore() {
     this.ctx.font = "32px sans-serif";
     this.ctx.fillText(`Score: ${this.score}`, this.canvas.width - 200, 50);
+  }
+
+  checkGameOver() {
+    return this.hearts <= 0
   }
 }

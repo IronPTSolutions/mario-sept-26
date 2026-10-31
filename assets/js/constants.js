@@ -35,3 +35,7 @@ const BOWSER_SCORE = 40
 const BOWSER_SPRITE = '/assets/img/sprites/enemies/bowser/sprite-left-bowser.png'
 const BOWSER_SPRITE_VFRAMES = 4
 const BOWSER_SPRITE_HFRAMES = 1
+
+const HEARTS_W = 24
+const HEARTS_H = 24
+const HEARTS_IMG = '/assets/img/heart.png'
