@@ -46,6 +46,9 @@ class Mario {
     this.sprite = this.spriteRight
 
     this.drawCount = 0
+
+    this.jumpAudio = new Audio('/assets/audio/jump.mp3')
+    this.jumpAudio.volume = 0.09
   }
 
   groundTo(groundY) {
@@ -118,6 +121,7 @@ class Mario {
         break
       case KEY_UP:
         if (!this.isJumping) {
+          this.jumpAudio.play()
           this.isJumping = true
           this.vy = -MARIO_VY
           this.ay = MARIO_AY

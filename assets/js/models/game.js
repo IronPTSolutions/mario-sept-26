@@ -31,10 +31,24 @@ class Game {
     this.heart.onload = () => {
       this.heart.isReady = true
     }
+
+    this.audio = new Audio('/assets/audio/music.mp3')
+    this.audio.volume = 0.01
+    this.audio.loop = true
+    this.audio.onload = () => {
+      console.log('preparado')
+    }
+
+    this.gameOverAudio = new Audio('/assets/audio/game-over.mp3')
+    this.gameOverAudio.volume = 0.01
+
+    this.coinAudio = new Audio('/assets/audio/coin.mp3')
+    this.coinAudio.volume = 0.01
   }
 
   start() {
     if (this.drawIntervalId === null) {
+      this.audio.play()
       // Esto se hace una vez
       this.setupListeners()
       // Esto 60 veces por segundo
@@ -82,7 +96,8 @@ class Game {
 
   gameOver() {
     // alert('Perdiste')
-    window.location.reload()
+    this.gameOverAudio.play()
+    this.audio.pause()
   }
 
   setupListeners() {
@@ -128,6 +143,7 @@ class Game {
   checkCollisions() {
     this.coins = this.coins.filter(coin => {
       if (this.mario.collidesWith(coin)) {
+        this.coinAudio.play()
         this.score += coin.score
         return false
       }
