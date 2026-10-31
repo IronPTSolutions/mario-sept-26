@@ -16,6 +16,9 @@ class Game {
     this.mario.groundTo(this.canvas.height - BG_FLOOR)
 
     this.bg = new Background(this.ctx)
+
+    this.coins = [];
+    this.coinTimeoutId = undefined;
   }
 
   start() {
@@ -25,6 +28,7 @@ class Game {
         this.clear()
         this.move()
         this.draw()
+        this.generateElements()
       }, this.fps)
     }
   }
@@ -32,11 +36,17 @@ class Game {
   draw() {
     this.bg.draw()
     this.mario.draw()
+    this.coins.forEach(coin => coin.draw())
+  }
+
+  checkBounds() {
+    this.coins = this.coins.filter((coin) => !(coin.x + coin.w < 0))
   }
 
   move() {
     this.bg.move()
     this.mario.move()
+    this.coins.forEach(coin => coin.move())
   }
 
   clear() {
@@ -55,5 +65,17 @@ class Game {
     addEventListener('keyup', (event) => {
       this.mario.onKeyEvent(event)
     })
+  }
+
+  generateElements() {
+    if (!this.coinTimeoutId && this.coins.length < MAX_IN_GAME_COINS) {
+      this.coinTimeoutId = setTimeout(() => {
+        const minY = this.canvas.height - BG_FLOOR - COIN_H;
+        const y = minY - Math.floor(Math.random() * 11);
+
+        this.coins.push(new Coin(this.ctx, this.canvas.width, y));
+        this.coinTimeoutId = undefined;
+      }, Math.floor(Math.random() * 10) * 1000)
+    }
   }
 }
