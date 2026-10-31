@@ -34,6 +34,7 @@ class Game {
         this.move()
         this.draw()
         this.generateElements()
+        this.checkCollisions()
       }, this.fps)
     }
   }
@@ -42,6 +43,7 @@ class Game {
     this.bg.draw()
     this.mario.draw()
     this.coins.forEach(coin => coin.draw())
+    this.drawScore()
   }
 
   move() {
@@ -87,5 +89,20 @@ class Game {
 
   checkBounds() {
     this.coins = this.coins.filter(coin => coin.x + coin.w >= 0)
+  }
+
+  checkCollisions() {
+    this.coins = this.coins.filter(coin => {
+      if (this.mario.collidesWith(coin)) {
+        this.score += coin.score
+        return false
+      }
+      return true
+    })
+  }
+
+  drawScore() {
+    this.ctx.font = "32px sans-serif";
+    this.ctx.fillText(`Score: ${this.score}`, this.canvas.width - 200, 50);
   }
 }
