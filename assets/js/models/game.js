@@ -18,7 +18,10 @@ class Game {
     this.bg = new Background(this.ctx)
 
     this.coins = []
-    this.coinTimeoutId = null
+    this.coinsTimeoutId = null
+
+    this.enemies = []
+    this.enemiesTimeoutId = null
 
     this.score = 0
     this.hearts = 3
@@ -43,6 +46,7 @@ class Game {
     this.bg.draw()
     this.mario.draw()
     this.coins.forEach(coin => coin.draw())
+    this.enemies.forEach(enemy => enemy.draw())
     this.drawScore()
   }
 
@@ -50,6 +54,7 @@ class Game {
     this.bg.move()
     this.mario.move()
     this.coins.forEach(coin => coin.move())
+    this.enemies.forEach(enemy => enemy.move())
 
     this.checkBounds()
   }
@@ -73,8 +78,8 @@ class Game {
   }
 
   generateElements() {
-    if (this.coinTimeoutId === null) {
-      this.coinTimeoutId = setTimeout(() => {
+    if (this.coinsTimeoutId === null) {
+      this.coinsTimeoutId = setTimeout(() => {
         const randomY = Math.floor(Math.random() * 101)
 
         this.coins.push(
@@ -82,8 +87,27 @@ class Game {
             this.ctx, this.canvas.width + 100,
             this.canvas.height - BG_FLOOR - COIN_H - randomY),
         )
-        this.coinTimeoutId = null
+        this.coinsTimeoutId = null
       }, 3000);
+    }
+
+    if (this.enemiesTimeoutId === null) {
+      this.enemiesTimeoutId = setTimeout(() => {
+        this.enemies.push(
+          new Enemy(
+            this.ctx,
+            this.canvas.width,
+            this.canvas.height - BG_FLOOR - BOWSER_H,
+            BOWSER_W,
+            BOWSER_H,
+            BOWSER_SPRITE,
+            BOWSER_SPRITE_VFRAMES,
+            BOWSER_SPRITE_HFRAMES,
+            BOWSER_SCORE
+          )
+        )
+        this.enemiesTimeoutId = null
+      }, 4000);
     }
   }
 

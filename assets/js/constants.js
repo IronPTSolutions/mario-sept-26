@@ -8,6 +8,8 @@ const MARIO_VY = 10
 const MARIO_AY = 0.4
 const MARIO_W = 30
 const MARIO_H = 42
+const MARIO_SPRITE_LEFT = '/assets/img/sprites/mario/sprite-left-mario.png'
+const MARIO_SPRITE_RIGHT = '/assets/img/sprites/mario/sprite-right-mario.png'
 
 const KEY_RIGHT = 39
 const KEY_LEFT = 37
@@ -23,3 +25,13 @@ const COIN_SCORE = 5
 const COIN_ANIMATION_FREQ = 15
 const COIN_VX = BG_VX
 const COINS_MAX_IN_GAME = 5
+
+const ENEMY_VX = MARIO_VX - 3
+const ENEMY_SPRITE_FREQUENCY = 15
+
+const BOWSER_W = 34 * 2
+const BOWSER_H = 41 * 2
+const BOWSER_SCORE = 40
+const BOWSER_SPRITE = '/assets/img/sprites/enemies/bowser/sprite-left-bowser.png'
+const BOWSER_SPRITE_VFRAMES = 4
+const BOWSER_SPRITE_HFRAMES = 1

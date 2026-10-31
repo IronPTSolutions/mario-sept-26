@@ -18,7 +18,7 @@ class Mario {
     // Declarar para las 2 imagenes
 
     this.spriteRight = new Image()
-    this.spriteRight.src = '/assets/img/sprites/mario/sprite-right-mario.png'
+    this.spriteRight.src = MARIO_SPRITE_RIGHT
     this.spriteRight.vFrames = 2 // Cuantas columnas tiene el dibujo xFrames
     this.spriteRight.hFrames = 2 // Cuantas filas
     this.spriteRight.vFrameIndex = 0
@@ -31,7 +31,7 @@ class Mario {
     }
 
     this.spriteLeft = new Image()
-    this.spriteLeft.src = '/assets/img/sprites/mario/sprite-left-mario.png'
+    this.spriteLeft.src = MARIO_SPRITE_LEFT
     this.spriteLeft.vFrames = 2 // Cuantas columnas tiene el dibujo xFrames
     this.spriteLeft.hFrames = 2 // Cuantas filas
     this.spriteLeft.vFrameIndex = 0
